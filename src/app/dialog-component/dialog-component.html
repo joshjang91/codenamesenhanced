@@ -1,0 +1,40 @@
+<div *ngIf="gameOver">
+    <h1 mat-dialog-title style="text-align:center;">You picked the Assassin!</h1>
+    <mat-dialog-content>
+        <h2 style="text-align:center;"> {{data.modalType}} Team Loses!</h2>
+    </mat-dialog-content>
+    <br>
+    <div>
+        <button mat-stroked-button style="float:right;" (click)="playAgain()">Play Again</button>
+        <button mat-stroked-button style="float:left;" (click)="closeModal()">Close</button>
+    </div>
+</div>
+
+<div *ngIf="assignRoles">
+    <h1 mat-dialog-title style="text-align:center;">Enter Username</h1>
+        <mat-form-field>
+            <mat-label>Add Username</mat-label>
+            <input 
+            [(ngModel)]="name"
+            matInput>
+            <mat-error *ngIf="errorMessage">asdfsd</mat-error>
+        </mat-form-field>
+        <button mat-stroked-button style="margin-left:10px;" (click)="addUser()">Add</button>
+        <br>
+        <br>
+        
+        <table>
+            <tr>
+                <th>Users</th>
+                <th>Role</th>
+            </tr>
+            <div *ngFor="let user of userList">
+                <tr>
+                    <td>{{user}}</td>
+                </tr>
+            </div>
+        </table>
+        <mat-dialog-actions>
+            <button mat-stroked-button (click)="closeModal()">Done</button>
+        </mat-dialog-actions>
+    </div>

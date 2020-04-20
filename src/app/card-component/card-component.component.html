@@ -1,0 +1,7 @@
+<button class="cardStyle"
+    (click)="revealType($event)"
+    [disabled]="revealed"
+    [style.background-color]="cardColor"
+    [style.color]="textColor">
+    {{clueString}}
+</button>

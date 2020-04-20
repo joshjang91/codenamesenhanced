@@ -1,0 +1,31 @@
+<h1 style="text-align:center;margin-top:20px;margin-bottom:20px;">CODENAMES Online</h1>
+  <h2 style="text-align:center;color:white;" 
+    [ngStyle]="{'background-color': currentTeam === 'Red' ? 'red' : 'blue'}">
+    {{currentTeam}} Teams Turn
+  </h2>
+    <table style="width:75%;margin-left:auto;margin-right:auto;">
+      <tr>
+        <th></th>
+        <th style="color:blue">Blue : {{blueCount}} Clues remaining</th>
+        <th></th>
+        <th style="color:red">Red : {{redCount}} Clues remaining</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let number of [0,1,2,3,4]">
+          <td style="width:250px;" *ngFor="let number of [0,1,2,3,4]">
+            <app-card-component
+            #cardComponent
+            [teamGoingFirst]="firstTeamOutput"
+            [currentTeam]="currentTeam"
+            [userType]="userType"
+            (updateCount)="updateCounter()"
+            (changeTeam)="changeCurrentTeam()">
+            </app-card-component>
+          </td>
+      </tr>
+    </table>
+
+    <button mat-stroked-button style="margin-right:10px;" (click)="resetGame()">Reset Game</button>
+    <button mat-stroked-button style="margin-right:10px;" (click)="changeCurrentTeam()">End Turn</button>
+    <button mat-stroked-button style="margin-right:10px;" (click)="setSpyMasterView()">Spymaster View</button>
+    <button mat-stroked-button style="margin-right:10px;" (click)="assignRoles()">Add User</button>
