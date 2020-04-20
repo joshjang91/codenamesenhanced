@@ -24,7 +24,8 @@ export class AppComponent {
   userType:string;
   userList = [];
 
-  constructor(public generalService: GeneralService, public dialog: MatDialog) {}
+  constructor(public generalService: GeneralService, 
+              public dialog: MatDialog) {}
 
   ngOnInit() {
     localStorage.setItem('redCount', '0');
@@ -87,13 +88,16 @@ export class AppComponent {
 
   assignRoles() {
     const dialogRef = this.dialog.open(DialogComponent, {
-      width: '320px',
+      width: '400px',
       height: '500px',
-      data: {modalType: 'assignRoles', userList: this.userList}
+      data: {modalType: 'assignRoles', userList: this.userList},
+      disableClose: true
     })
 
     dialogRef.afterClosed().subscribe(result=>{
-      this.userList = result;
+      if (result !== undefined) {
+        this.userList = result;
+      }
     })
   }
 }

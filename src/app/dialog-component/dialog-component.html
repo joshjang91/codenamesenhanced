@@ -12,25 +12,54 @@
 
 <div *ngIf="assignRoles">
     <h1 mat-dialog-title style="text-align:center;">Enter Username</h1>
+    <div style="text-align:center;">
         <mat-form-field>
             <mat-label>Add Username</mat-label>
             <input 
             [(ngModel)]="name"
+            [formControl]="nameControl"
             matInput>
-            <mat-error *ngIf="errorMessage">asdfsd</mat-error>
+            <mat-error *ngIf="nameControl.dirty">asdfsd</mat-error>
         </mat-form-field>
         <button mat-stroked-button style="margin-left:10px;" (click)="addUser()">Add</button>
+    </div>   
         <br>
-        <br>
-        
         <table>
             <tr>
                 <th>Users</th>
-                <th>Role</th>
             </tr>
-            <div *ngFor="let user of userList">
+            <div *ngFor="let user of userList; let i = index;">
                 <tr>
-                    <td>{{user}}</td>
+                    <div *ngIf="user.team === 'Red'">
+                        <td [ngStyle]="{'color': 'red'}">{{user.name}}</td>
+                    </div>
+                    <div *ngIf="user.team === 'Blue'">
+                        <td [ngStyle]="{'color': 'blue'}">{{user.name}}</td>
+                    </div>
+                    <div *ngIf="user.team === null">
+                        <td>{{user.name}}</td>
+                    </div>
+                    <td>
+                        <mat-form-field style="width:100px;margin-left:10px;margin-right:10px;">
+                            <mat-label>Role</mat-label>
+                            <mat-select [(ngModel)]="user.role" (selectionChange)="onRoleChange($event,i)">
+                                <mat-option *ngFor="let role of roles" [value]="role.value">
+                                    {{role.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field style="width:100px;margin-left:10px;margin-right:10px;">
+                            <mat-label>Team</mat-label>
+                            <mat-select [(ngModel)]="user.team" (selectionChange)="onTeamChange($event,i)">
+                                <mat-option *ngFor="let team of teams" [value]="team.value">
+                                    {{team.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <td><button mat-stroked-button (click)="removeUser(i)">Remove</button></td>
                 </tr>
             </div>
         </table>

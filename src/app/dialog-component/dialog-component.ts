@@ -3,6 +3,14 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { MatButtonModule } from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
+import { FormControl } from '@angular/forms';
+
+class Player {
+  name:string;
+  role:string;
+  team:string;
+}
 
 @Component({
     selector: 'dialog-component',
@@ -16,6 +24,16 @@ import { FormsModule } from '@angular/forms';
     userList = [];
     name:string;
     errorMessage = false;
+    nameControl:FormControl;
+    textColor:string;
+    roles = [
+      {value:'Guesser', viewValue:'Guesser'},
+      {value:'Clue Giver', viewValue:'Clue Giver'}
+    ];
+    teams = [
+      {value:'Red', viewValue:'Team Red'},
+      {value:'Blue', viewValue:'Team Blue'}
+    ];
 
     constructor(
       public dialogRef: MatDialogRef<DialogComponent>,
@@ -29,8 +47,12 @@ import { FormsModule } from '@angular/forms';
         this.assignRoles = true;
         this.gameOver = false;
       }
+
+      this.nameControl = new FormControl('');
+      this.userList = this.data.userList;
     }
 
+    // TODO: Find way to refresh just card components/grid
     playAgain(): void {
         window.location.reload();
     }
@@ -40,13 +62,29 @@ import { FormsModule } from '@angular/forms';
     }
 
     addUser() {
-      if (this.userList.indexOf(this.name) > -1) {
-        this.errorMessage = true;
+      const index = this.userList.findIndex(x => x.name === this.name);
+      if (index > -1 || this.name === '' || this.name === undefined) {
+        this.nameControl.markAsDirty();
       } else {
         this.errorMessage = false;
-        this.userList.push(this.name);
+        const newUser = new Player();
+        newUser.name = this.name;
+        newUser.team = null;
+        newUser.role = null;
+        this.userList.push(newUser);
         this.name = '';
       }
     }
-  
+
+    removeUser(index) {
+      this.userList.splice(index,1);
+    }
+
+    onRoleChange(event,index) {
+      this.userList[index].role = event.value;
+    }
+
+    onTeamChange(event,index) {
+      this.userList[index].team = event.value;
+    }
   }

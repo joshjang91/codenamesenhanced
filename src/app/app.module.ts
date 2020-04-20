@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MatButtonModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule
   ],
   providers: [],
   entryComponents: [

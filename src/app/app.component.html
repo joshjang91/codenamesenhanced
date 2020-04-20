@@ -3,7 +3,7 @@
     [ngStyle]="{'background-color': currentTeam === 'Red' ? 'red' : 'blue'}">
     {{currentTeam}} Teams Turn
   </h2>
-    <table style="width:75%;margin-left:auto;margin-right:auto;">
+    <table style="max-width:75%;margin-left:auto;margin-right:auto;">
       <tr>
         <th></th>
         <th style="color:blue">Blue : {{blueCount}} Clues remaining</th>
@@ -29,3 +29,16 @@
     <button mat-stroked-button style="margin-right:10px;" (click)="changeCurrentTeam()">End Turn</button>
     <button mat-stroked-button style="margin-right:10px;" (click)="setSpyMasterView()">Spymaster View</button>
     <button mat-stroked-button style="margin-right:10px;" (click)="assignRoles()">Add User</button>
+
+    <table>
+        <tr>
+            <th>Users</th>
+        </tr>
+        <div *ngFor="let user of userList; let i = index;">
+          <tr>
+              <td>{{user.name}}</td>
+              <td>{{user.role}}</td>
+              <td>{{user.team}}</td>
+          </tr>
+        </div>
+    </table>
