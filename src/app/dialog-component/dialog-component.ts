@@ -57,8 +57,29 @@ class Player {
         window.location.reload();
     }
 
+    validateUsers() {
+      let error = 0;
+      // TODO: Use validation error and <mat-error>
+      this.userList.forEach(x => {
+        if (x.role === undefined || x.role === null) {
+          alert('Please fill in Role for each user');
+          error++;
+        } else if (x.team === undefined || x.team === null) {
+          alert('Please fill in Team for each user');
+          error++;
+        }
+      })
+      if (error === 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     closeModal() {
-      this.dialogRef.close(this.userList);
+      if (this.validateUsers()) {
+        this.dialogRef.close(this.userList);
+      }
     }
 
     addUser() {

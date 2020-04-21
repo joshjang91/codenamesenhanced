@@ -88,7 +88,7 @@ export class AppComponent {
 
   assignRoles() {
     const dialogRef = this.dialog.open(DialogComponent, {
-      width: '400px',
+      width: 'auto',
       height: '500px',
       data: {modalType: 'assignRoles', userList: this.userList},
       disableClose: true

@@ -36,7 +36,15 @@
         </tr>
         <div *ngFor="let user of userList; let i = index;">
           <tr>
-              <td>{{user.name}}</td>
+              <div *ngIf="user.team === 'Red'">
+                  <td [ngStyle]="{'color': 'red'}">{{user.name}}</td>
+              </div>
+              <div *ngIf="user.team === 'Blue'">
+                  <td [ngStyle]="{'color': 'blue'}">{{user.name}}</td>
+              </div>
+              <div *ngIf="user.team === null">
+                  <td>{{user.name}}</td>
+              </div>
               <td>{{user.role}}</td>
               <td>{{user.team}}</td>
           </tr>
